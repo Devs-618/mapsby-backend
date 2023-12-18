@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>by.maps.ggc</groupId>
+    <artifactId>mapsby-backend</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.security.oauth2.jose.version>5.8.0</spring.security.oauth2.jose.version>
+        <spring.security.oauth2.server.version>3.1.0</spring.security.oauth2.server.version>
+        <spring.security.jwt.version>1.1.1.RELEASE</spring.security.jwt.version>
+        <mapstruct.processor.version>1.4.2.Final</mapstruct.processor.version>
+        <spring.boot.maven.plugin.version>2.7.0</spring.boot.maven.plugin.version>
+        <apache.maven.compiler.plugin.version>3.5.1</apache.maven.compiler.plugin.version>
+        <spring.boot.configuration.processor.version>3.0.4</spring.boot.configuration.processor.version>
+        <projectlombok.lombok.version>1.18.26</projectlombok.lombok.version>
+        <projectlombok.lombok.mapstruct.binding.version>0.2.0</projectlombok.lombok.mapstruct.binding.version>
+        <spring.boot.starter.log4j.version>3.0.1</spring.boot.starter.log4j.version>
+        <org.postgresql.version>42.5.4</org.postgresql.version>
+        <org.liquibase.version>4.22.0</org.liquibase.version>
+        <jakarta.xml.bind.version>4.0.0</jakarta.xml.bind.version>
+        <org.mapstruct.mapstruct.version>1.5.5.Final</org.mapstruct.mapstruct.version>
+        <io.swagger.annotations.version>2.1.12</io.swagger.annotations.version>
+        <springdoc.openapi.ui.version>1.6.3</springdoc.openapi.ui.version>
+        <io.rest-assured.version>5.3.0</io.rest-assured.version>
+        <org.maven.resource.plugin.version>3.3.0</org.maven.resource.plugin.version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${org.maven.resource.plugin.version}</version>
+                <configuration>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.0</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${io.swagger.annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc.openapi.ui.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,24 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_HOST}
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_HOST}
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: ${KEYCLOAK_CLIENT_ID}
+            client-secret: ${KEYCLOAK_SECRET}
+            scope: ${KEYCLOAK_SCOPE}
+
+
+
+# 5e5PEgFB7ffdz6dIEqjK4vBNbR0DytHq // local secret
+# nGojc659H0XaBif8VFftNJkVPtEhEYQD // server secret

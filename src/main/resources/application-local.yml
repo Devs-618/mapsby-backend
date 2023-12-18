@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8083/realms/gn
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8083/realms/gn
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: maps-by-server-side
+            client-secret: JPP4erVY4XxqxM2Ycg4Em4NtyQTe2b4C
+            scope: openid
+
+
+
+# 5e5PEgFB7ffdz6dIEqjK4vBNbR0DytHq // local secret
+# nGojc659H0XaBif8VFftNJkVPtEhEYQD // server secret
