@@ -18,13 +18,14 @@ spring:
             client-secret: JPP4erVY4XxqxM2Ycg4Em4NtyQTe2b4C
             scope: openid
 
-# can be keycloak or custom
-auth_provider: keycloak
-
-unauthorized:
-  urls:
-    - /swagger-ui/*
-    - /v3/api-docs/**
+security:
+  auth_provider: keycloak  # can be keycloak or custom
+  unauthorized:
+    urls:
+      - /swagger-ui/*
+      - /v3/api-docs/**
+  cors:
+    allowed-origins: http://localhost:3000
 
 springdoc:
   api-docs:
@@ -35,5 +36,5 @@ springdoc:
     doc-expansion: none
     disable-swagger-default-url: true
 
-# JPP4erVY4XxqxM2Ycg4Em4NtyQTe2b4C // local secret
+# 9AyJEXSjQw3mtADN1yD83WkbAMLotiRd // local secret
 # nGojc659H0XaBif8VFftNJkVPtEhEYQD // server secret

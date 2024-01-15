@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "unauthorized")
+@ConfigurationProperties(prefix = "security.unauthorized")
 public class SecurityUrlConfig {
     private ArrayList<String> urls;
 }

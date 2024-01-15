@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 @EnableWebSecurity
 @Profile({"local", "prod"})
-@ConditionalOnProperty(name = "auth_provider", havingValue = "keycloak")
+@ConditionalOnProperty(name = "security.auth_provider", havingValue = "keycloak")
 @RequiredArgsConstructor
 @Log4j2
 public class KeycloakSecurityConfig {
@@ -46,7 +46,7 @@ public class KeycloakSecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()))
                 .formLogin().disable()
-                .cors();
+                .cors(Customizer.withDefaults());
         return http.build();
     }
     @Bean

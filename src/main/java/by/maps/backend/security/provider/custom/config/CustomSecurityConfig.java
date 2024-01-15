@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 @Configuration
 @EnableWebSecurity
 @Profile({"test", "local", "prod"})
-@ConditionalOnProperty(name = "auth_provider", havingValue = "custom")
+@ConditionalOnProperty(name = "security.auth_provider", havingValue = "custom")
 @RequiredArgsConstructor
 public class CustomSecurityConfig {
     private final SecurityUrlConfig securityUrlConfig;
@@ -46,7 +46,7 @@ public class CustomSecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()))
                 .formLogin().disable()
-                .cors();
+                .cors(Customizer.withDefaults());
         return http.build();
     }
     @Bean

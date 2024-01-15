@@ -18,13 +18,14 @@ spring:
             client-secret: ${KEYCLOAK_SECRET}
             scope: ${KEYCLOAK_SCOPE}
 
-# can be keycloak or custom
-auth_provider: keycloak
-
-unauthorized:
-  urls:
-    - /swagger-ui/*
-    - /v3/api-docs/**
+security:
+  auth_provider: keycloak  # can be keycloak or custom
+  unauthorized:
+    urls:
+      - /swagger-ui/*
+      - /v3/api-docs/**
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGIN}
 
 springdoc:
   api-docs:
@@ -36,5 +37,5 @@ springdoc:
     disable-swagger-default-url: true
 
 
-# 5e5PEgFB7ffdz6dIEqjK4vBNbR0DytHq // local secret
+# 9AyJEXSjQw3mtADN1yD83WkbAMLotiRd // local secret
 # nGojc659H0XaBif8VFftNJkVPtEhEYQD // server secret
