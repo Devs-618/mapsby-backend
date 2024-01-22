@@ -29,7 +29,6 @@ public class KeycloakSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         String[] patternsArr = securityUrlConfig.getUrls().toArray(new String[0]);
-        http.oauth2Login(Customizer.withDefaults());
         http
                 .csrf().disable()
                 .authorizeRequests()

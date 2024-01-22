@@ -7,16 +7,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8083/realms/gn
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8083/realms/gn
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-            client-id: maps-by-server-side
-            client-secret: JPP4erVY4XxqxM2Ycg4Em4NtyQTe2b4C
-            scope: openid
 
 security:
   auth_provider: keycloak  # can be keycloak or custom
@@ -36,5 +26,17 @@ springdoc:
     doc-expansion: none
     disable-swagger-default-url: true
 
-# 9AyJEXSjQw3mtADN1yD83WkbAMLotiRd // local secret
-# nGojc659H0XaBif8VFftNJkVPtEhEYQD // server secret
+keycloak:
+  client:
+    admin:
+     client_id: maps-by-server-side
+     server_url: http://localhost:8083
+     realm: gn
+     username: admin
+     password: admin
+     client_secret: o2X7tHuT8ds4DpX6UMb2Ih6jRwlEdhfK
+
+validator:
+  user:
+    emailPattern: ^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$
+    passwordPattern: ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$

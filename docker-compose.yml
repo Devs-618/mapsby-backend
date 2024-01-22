@@ -1,0 +1,163 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgis/postgis:14-3.4
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgre
+      - POSTGRES_PASSWORD=rootadmin
+      - POSTGRES_TIMEZONE=Europe/Minsk
+      - POSTGRES_LOG_TIMEZONE=Europe/Minsk
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'D:/Hromau/vol/postgresql/data:/var/lib/postgresql/data'
+    restart: always
+
+  pgadmin:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    container_name: pgadmin
+    image: dpage/pgadmin4:7
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - 'D:/Hromau/vol/pgadmin:/var/lib/pgadmin'
+    healthcheck:
+      test: "curl -f http://localhost:5050/health/ready || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  keycloak:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    image: quay.io/keycloak/keycloak:17.0.0
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=postgres
+      - KC_DB_URL_DATABASE=keycloak
+      - KC_DB_USERNAME=postgre
+      - KC_DB_PASSWORD=rootadmin
+      - KC_HEALTH_ENABLED=true
+    ports:
+      - "8083:8080"
+    command: start-dev
+    volumes:
+      - 'D:/Hromau/vol/keycloak/data:/data'
+    healthcheck:
+      test: "curl -f http://localhost:8083/health/ready || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  geonetwork:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    build: D:/Hromau/Development/geonetworkby/geonetworkby
+    container_name: geonetwork
+    environment:
+      - GEONETWORK_DB_HOST=postgres
+      - GEONETWORK_DB_PORT=5432
+      - TZ=Europe/Minsk
+    ports:
+      - "8082:8080"
+    volumes:
+      - 'D:/Hromau/vol/geonetwork/tomcat/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml'
+      - 'D:/Hromau/vol/geonetwork/webapps:/usr/local/tomcat/webapps'
+    healthcheck:
+      test: "curl --fail http://localhost:8082/pools || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  elasticsearch:
+    image: elastic/elasticsearch:7.4.2
+    container_name: es
+    hostname: es
+    ports:
+      - 9200:9200
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - 'D:/Hromau/vol/elasticsearch/es_data:/usr/share/elasticsearch/data'
+    healthcheck:
+      test: "curl -s http://localhost:9200 >/dev/null || exit 1"
+      interval: 10s
+      timeout: 2s
+      retries: 10
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms1G -Xmx1G
+    restart: always
+
+  kibana:
+    image: elastic/kibana:7.4.2
+    container_name: kibana
+    hostname: kibana
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    ports:
+      - 5601:5601
+    environment:
+      SERVER_NAME: 'kibana'
+      ELASTICSEARCH_URL: http://elasticsearch:9200/
+      SERVER_BASEPATH: /geonetwork/dashboards
+      SERVER_REWRITEBASEPATH: 'false'
+      KIBANA_INDEX: .dashboards
+      XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED: 'true'
+
+  mapsby-back:
+    build: D:/Hromau/Development/mapsby(back)/mapsby-backend
+    container_name: mapsby-back
+    environment:
+      - KEYCLOAK_HOST=http://keycloak:8080/realms/gn
+      - SERVER_PORT=8081
+      - TZ=Europe/Minsk
+      - KEYCLOAK_CLIENT_ID=maps-by-server-side
+      - KEYCLOAK_SECRET=9AyJEXSjQw3mtADN1yD83WkbAMLotiRd
+      - KEYCLOAK_SCOPE=openid
+      - CORS_ALLOWED_ORIGIN=/**
+      - ENV KEYCLOAK_REALM=gn
+      - ENV KEYCLOAK_USERNAME=admin
+      - ENV KEYCLOAK_PASSWORD=admin
+    ports:
+      - "8081:8080"
+    volumes:
+      - 'D:/Hromau/vol/mapsbysrv/target:/app'
+    restart: always
+
+  mapsby-front:
+    build: D:/Hromau/Development/mapsby(UI)/mapsby-frontend
+    container_name: mapsby-front
+    environment:
+      - TZ=Europe/Minsk
+    ports:
+      - "3000:3000"
+    volumes:
+      - 'D:/Hromau/vol/mapsbycli/build:/app/build '
+    restart: always

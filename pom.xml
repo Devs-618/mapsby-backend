@@ -30,6 +30,7 @@
         <springdoc.openapi.ui.version>1.6.3</springdoc.openapi.ui.version>
         <io.rest-assured.version>5.3.0</io.rest-assured.version>
         <org.maven.resource.plugin.version>3.3.0</org.maven.resource.plugin.version>
+        <org.keycloak.admin.client.version>17.0.0</org.keycloak.admin.client.version>
     </properties>
 
     <profiles>
@@ -91,10 +92,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
@@ -144,6 +141,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
             <version>${spring.security.jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>${org.keycloak.admin.client.version}</version>
         </dependency>
     </dependencies>
 </project>
