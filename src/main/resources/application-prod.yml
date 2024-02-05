@@ -6,17 +6,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_HOST}
-      client:
-        provider:
-          keycloak:
-            issuer-uri: ${KEYCLOAK_HOST}
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-            client-id: ${KEYCLOAK_CLIENT_ID}
-            client-secret: ${KEYCLOAK_SECRET}
-            scope: ${KEYCLOAK_SCOPE}
+          issuer-uri: ${KEYCLOAK_HOST}/realms/gn
 
 security:
   auth_provider: keycloak  # can be keycloak or custom
@@ -36,6 +26,18 @@ springdoc:
     doc-expansion: none
     disable-swagger-default-url: true
 
+keycloak:
+  client:
+    admin:
+      client_id: ${KEYCLOAK_CLIENT_ID}
+      server_url: ${KEYCLOAK_HOST}
+      realm: ${KEYCLOAK_REALM}
+      username: ${KEYCLOAK_USERNAME}
+      password: ${KEYCLOAK_PASSWORD}
+      client_secret: ${KEYCLOAK_SECRET}
 
-# 9AyJEXSjQw3mtADN1yD83WkbAMLotiRd // local secret
-# nGojc659H0XaBif8VFftNJkVPtEhEYQD // server secret
+validator:
+  user:
+    emailPattern: ^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$
+    passwordPattern: ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$
+
