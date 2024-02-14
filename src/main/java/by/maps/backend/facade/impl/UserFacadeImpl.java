@@ -6,20 +6,20 @@ import by.maps.backend.facade.UserFacade;
 import by.maps.backend.service.AdminClientService;
 import by.maps.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
-import java.util.List;
+import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class UserFacadeImpl implements UserFacade {
 
     private final UserService userService;
-    private final AdminClientService adminClientService;
+    private final AdminClientService<UserRepresentation> adminClientService;
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public UserDto getUserDto() {
         UserDto dto = new UserDto();
         User user = userService.getUser();
@@ -31,6 +31,7 @@ public class UserFacadeImpl implements UserFacade {
 
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public UserDto updateUser(UserDto userDto) {
         UserRepresentation ur = adminClientService.getUserById(userDto.getId());
         ur.setEmail(userDto.getEmail());

@@ -15,5 +15,6 @@ public class User {
     @NotNull
     @Email(message = "Please provide a valid email address")
     private String email;
+    @NotNull
     private String given_name;
 }

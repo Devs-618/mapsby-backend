@@ -5,8 +5,8 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface AdminClientService {
-    UserRepresentation update(UserRepresentation ur);
+public interface AdminClientService<T> {
+    T update(T t);
 
-    UserRepresentation getUserById(String id) throws EntityNotFoundException;
+    T getUserById(String id) throws EntityNotFoundException;
 }

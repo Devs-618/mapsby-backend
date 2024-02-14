@@ -7,8 +7,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-//TODO: implement preAuthorize
+
 @RestController
 @RequestMapping("/api/v1/user")
 @SecurityRequirement(name = "Bearer Auth")
@@ -20,10 +21,12 @@ import org.springframework.web.bind.annotation.*;
 @ApiResponse(responseCode = "503", description = "Service unavailable")
 public interface UserController {
     @GetMapping("/me")
-    @Operation(description = "Getting user details")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(description = "Getting user details. This endpoint requires a JWT token in the Authorization header")
     ResponseEntity<UserDto> getAuthenticatedUser();
 
     @PutMapping()
-    @Operation(description = "Updating user")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(description = "Updating user. This endpoint requires a JWT token in the Authorization header")
     ResponseEntity<UserDto> update(@RequestBody UserDto userDto);
 }

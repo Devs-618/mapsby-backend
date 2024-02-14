@@ -5,6 +5,7 @@ import by.maps.backend.security.util.AccountDetails;
 import by.maps.backend.security.util.JwtUtil;
 import by.maps.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final JwtUtil util;
     @Override
+    @PreAuthorize("isAuthenticated()")
     public User getUser() {
         AccountDetails ad = util.getAccountDetails();
         User user = new User();

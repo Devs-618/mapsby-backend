@@ -1,4 +1,28 @@
 server:
   port: 8081
 
-auth_provider: custom
+auth_provider: keycloak
+
+security:
+  auth_provider: keycloak  # can be keycloak or custom
+  unauthorized:
+    urls:
+      - /swagger-ui/*
+      - /v3/api-docs/**
+  cors:
+    allowed-origins: http://localhost:3000
+
+keycloak:
+  client:
+    admin:
+      client_id: maps-by-server-side
+      server_url: http://localhost:8083
+      realm: master
+      username: admin
+      password: admin
+      client_secret: HOexqeeaaDDdZDS09kSSFokX5YEdCil2
+
+validator:
+  user:
+    emailPattern: ^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$
+    passwordPattern: ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$

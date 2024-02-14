@@ -5,7 +5,10 @@ import by.maps.backend.core.util.ErrorMessages;
 import by.maps.backend.domain.User;
 import by.maps.backend.exception.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+//TODO:check annotation possibility
+@Component
 @RequiredArgsConstructor
 public class UserValidator implements Validator<User>{
 

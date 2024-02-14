@@ -34,7 +34,7 @@ keycloak:
      realm: gn
      username: admin
      password: admin
-     client_secret: o2X7tHuT8ds4DpX6UMb2Ih6jRwlEdhfK
+     client_secret: HOexqeeaaDDdZDS09kSSFokX5YEdCil2
 
 validator:
   user:

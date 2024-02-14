@@ -1,4 +1,4 @@
-package by.maps.backend;
+package by.maps.backend.service.impl;
 
 import by.maps.backend.domain.User;
 import by.maps.backend.exception.UnAuthorizedCustomException;
@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
-@Profile(value = "test")
+@ActiveProfiles("test")
 @RequiredArgsConstructor
 @DisplayName("Testing of user_service")
 @TestPropertySource("classpath:application-test.yml")

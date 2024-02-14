@@ -30,7 +30,10 @@
         <springdoc.openapi.ui.version>1.6.3</springdoc.openapi.ui.version>
         <io.rest-assured.version>5.3.0</io.rest-assured.version>
         <org.maven.resource.plugin.version>3.3.0</org.maven.resource.plugin.version>
+        <!--        NOTE: do not change this keycloak-admin version, because it's for keycloak 17-->
         <org.keycloak.admin.client.version>17.0.0</org.keycloak.admin.client.version>
+        <com.github.dasniko.testcontainers.keycloak.version>2.4.0</com.github.dasniko.testcontainers.keycloak.version>
+        <org.testcontainers.junit.jupiter.version>1.18.3</org.testcontainers.junit.jupiter.version>
     </properties>
 
     <profiles>
@@ -142,10 +145,22 @@
             <artifactId>spring-security-jwt</artifactId>
             <version>${spring.security.jwt.version}</version>
         </dependency>
+<!--        NOTE: do not change this keycloak-admin version, because it's for keycloak 17-->
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
             <version>${org.keycloak.admin.client.version}</version>
+        </dependency><dependency>
+        <groupId>com.github.dasniko</groupId>
+        <artifactId>testcontainers-keycloak</artifactId>
+        <version>${com.github.dasniko.testcontainers.keycloak.version}</version>
+        <scope>test</scope>
+    </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${org.testcontainers.junit.jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
