@@ -5,7 +5,7 @@ import by.maps.backend.core.util.validator.UserValidator;
 import by.maps.backend.exception.EntityNotFoundException;
 import by.maps.backend.exception.UnAuthorizedCustomException;
 import by.maps.backend.security.util.JwtUtil;
-import by.maps.backend.service.AdminClientService;
+import by.maps.backend.service.UserClientService;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.UserResource;
@@ -18,7 +18,7 @@ import javax.ws.rs.NotFoundException;
 
 @Service
 @RequiredArgsConstructor
-public class KeycloakAdminClientService implements AdminClientService<UserRepresentation> {
+public class KeycloakUserClientService implements UserClientService<UserRepresentation> {
     @Value("${keycloak.client.admin.realm}")
     private String REALM_NAME;
     private static final String ENTITY_NOT_FOUND_MESSAGE = ErrorMessages.ENTITY_NOT_FOUND_MESSAGE.label;

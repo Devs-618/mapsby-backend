@@ -36,9 +36,9 @@ import static org.mockito.Mockito.when;
 @RequiredArgsConstructor
 @DisplayName("Testing of keycloak_admin_client_service")
 @TestPropertySource("classpath:application-test.yml")
-class KeycloakAdminClientServiceTest {
+class KeycloakUserClientServiceTest {
 
-    private KeycloakAdminClientService adminClientService;
+    private KeycloakUserClientService adminClientService;
     private static final String KEYCLOAK_REALM = "master";
     private static final String KEYCLOAK_USERNAME = "admin";
     private static final String KEYCLOAK_PASSWORD = "admin";
@@ -85,7 +85,7 @@ class KeycloakAdminClientServiceTest {
                     .clientId("admin-cli")
                     .build();
         }
-        adminClientService = new KeycloakAdminClientService(keycloak, jwtUtil, userValidator);
+        adminClientService = new KeycloakUserClientService(keycloak, jwtUtil, userValidator);
         adminClientService.setName(KEYCLOAK_REALM);
         RealmResource realmResource = keycloak.realm(KEYCLOAK_REALM);
         try (Response response = realmResource.users().create(oldUser)) {

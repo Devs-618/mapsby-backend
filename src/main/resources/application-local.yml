@@ -8,6 +8,19 @@ spring:
         jwt:
           issuer-uri: http://localhost:8083/realms/gn
 
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: db/changelog/database-mapsby-backend-changelog.xml
+    default-schema: nat_geo
+    liquibase-schema: settings
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/mapsby?useSSL=false
+    username: admin
+    password: admin
+
 security:
   auth_provider: keycloak  # can be keycloak or custom
   unauthorized:

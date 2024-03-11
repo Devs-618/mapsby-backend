@@ -10,6 +10,9 @@ ENV TZ="Europe/Moscow"
 ENV KEYCLOAK_REALM=gn
 ENV KEYCLOAK_USERNAME=admin
 ENV KEYCLOAK_PASSWORD=admin
+ENV POSTGRES_HOST=localhost:5432
+ENV POSTGRES_USER=admin
+ENV POSTGRES_PASSWORD=admin
 COPY src/main/resources/application-prod.yml /app/application-prod.yml
 COPY target/mapsby-backend-1.0-SNAPSHOT.jar /app/mapsby-backend-1.0-SNAPSHOT.jar
 ENTRYPOINT ["java", "-jar", "/app/mapsby-backend-1.0-SNAPSHOT.jar", "--spring.profiles.active=prod"]
