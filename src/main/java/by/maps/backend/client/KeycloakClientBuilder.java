@@ -1,4 +1,4 @@
-package by.maps.backend.security.provider.keycloak.client;
+package by.maps.backend.client;
 
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
